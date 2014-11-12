@@ -1,9 +1,9 @@
 module AfterCommitQueue
-  extend ActiveSupport::Concern
-
-  included do
-    after_commit :_run_after_commit_queue
-    after_rollback :_clear_after_commit_queue
+  def self.included(klass)
+    klass.class_eval do
+      after_commit :_run_after_commit_queue
+      after_rollback :_clear_after_commit_queue
+    end
   end
 
   # Public: Add method to after commit queue
